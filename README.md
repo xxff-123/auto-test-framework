@@ -41,6 +41,8 @@
     ├── conftest.py             公共 fixture（登录复用）
     ├── pytest.ini              pytest 配置
     ├── requirements.txt        依赖清单
+    ├── Dockerfile              容器化配置
+    ├── Jenkinsfile             Jenkins 流水线配置
     └── README.md
 
 ## 用例覆盖
@@ -108,3 +110,14 @@
     python ai/generate_cases.py     # 生成测试用例
     python ai/generate_script.py    # 生成 pytest 脚本
     python ai/analyze_failure.py    # 跑测试并自动分析失败原因
+
+## CI/CD（Docker + Jenkins）
+
+项目配置了 **Docker 容器化**与 **Jenkins 流水线**，实现「拉取代码 → 构建镜像 → 执行测试」的全流程自动化：
+
+1. **拉取代码**：从 Git 仓库拉取最新代码
+2. **构建镜像**：`docker build` 打包一致的测试环境
+3. **运行测试**：`docker run` 在容器中执行 pytest
+
+> - 流水线配置见 `Jenkinsfile`（Pipeline as Code）
+> - 容器镜像配置见 `Dockerfile`
